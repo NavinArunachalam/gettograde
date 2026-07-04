@@ -11,7 +11,19 @@ function FacultyPage() {
 
   useEffect(() => {
     api.get("/public/faculty")
-      .then((res) => { if (res.success) setFaculty(res.facultyList || []); })
+      .then((res) => {
+        if (res.success) {
+          const list = res.facultyList || [];
+          const seen = new Set<string>();
+          const unique = list.filter((f: any) => {
+            const key = f.name?.trim();
+            if (!key || seen.has(key)) return false;
+            seen.add(key);
+            return true;
+          });
+          setFaculty(unique);
+        }
+      })
       .catch(() => {});
   }, []);
 
