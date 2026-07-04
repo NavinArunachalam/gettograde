@@ -27,7 +27,22 @@ router.get('/programs/:slug', (req, res) => {
 // GET /faculty → Faculty directory
 router.get('/faculty', async (req, res, next) => {
   try {
-    const facultyList = await FacultyMember.find().sort({ createdAt: 1 });
+    const facultyList = await FacultyMember.aggregate([
+      {
+        $group: {
+          _id: "$_id",
+          name: { $first: "$name" },
+          role: { $first: "$role" },
+          specialty: { $first: "$specialty" },
+          years: { $first: "$years" },
+          rating: { $first: "$rating" },
+          initials: { $first: "$initials" },
+          image: { $first: "$image" },
+          createdAt: { $first: "$createdAt" }
+        }
+      },
+      { $sort: { createdAt: 1 } }
+    ]);
     res.json({ success: true, facultyList });
   } catch (error) {
     next(error);
