@@ -36,7 +36,9 @@ export function Faculty() {
   }, []);
 
   const visible = faculty.length > 0
-    ? faculty.slice(idx, idx + 4).concat(faculty.slice(0, Math.max(0, idx + 4 - faculty.length)))
+    ? faculty.length <= 4
+      ? faculty.slice(0, 4)
+      : faculty.slice(idx, idx + 4).concat(faculty.slice(0, Math.max(0, idx + 4 - faculty.length)))
     : [];
 
   return (
