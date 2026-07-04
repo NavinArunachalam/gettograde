@@ -1,0 +1,14 @@
+{
+  "appId": "com.edumeet.live",
+  "appName": "EduMeet Live",
+  "webDir": "dist/client",
+  "server": {
+    "androidScheme": "https"
+  },
+  "plugins": {
+    "ScreenOrientation": {
+      "defaultOrientation": "landscape"
+    }
+  },
+  "scheme": "edumeetlive"
+}

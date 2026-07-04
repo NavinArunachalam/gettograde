@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">EduMeet Live</string>
+    <string name="title_activity_main">EduMeet Live</string>
+    <string name="package_name">com.edumeet.live</string>
+    <string name="custom_url_scheme">com.edumeet.live</string>
+</resources>
