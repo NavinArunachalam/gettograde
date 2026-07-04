@@ -49,7 +49,7 @@ function Settings() {
 
   // 1. Organization
   const [org, setOrg] = useState({
-    name: "Axon Med Academy",
+    name: "Get To Grade",
     url: "axonmedacademy",
     email: "hello@axon.academy",
     phone: "+91 98765 43210",
@@ -382,7 +382,7 @@ function Settings() {
               <div className="flex justify-between items-center mb-6">
                 <div>
                   <h3 className="font-display font-bold text-lg">Organization details</h3>
-                  <p className="text-xs text-cream/60 mt-1">General public information about Axon Med Academy</p>
+                  <p className="text-xs text-cream/60 mt-1">General public information about Get To Grade</p>
                   {isLoadingOrg && <p className="text-xs text-lime mt-1">Loading saved details...</p>}
                 </div>
                 <Building2 className="text-lime w-6 h-6 opacity-80" />

@@ -63,9 +63,9 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Axon Med Academy — Train. Certify. Get Placed." },
+      { title: "Get To Grade — Train. Certify. Get Placed." },
       { name: "description", content: "India's #1 paramedical training academy. Live classes, proctored exams, blockchain certificates, 95% placement rate across 200+ partner hospitals." },
-      { property: "og:title", content: "Axon Med Academy" },
+      { property: "og:title", content: "Get To Grade" },
       { property: "og:description", content: "Train. Certify. Get placed in leading hospitals." },
       { property: "og:image", content: "/logo.jpeg" },
       { property: "og:image:width", content: "1200" },

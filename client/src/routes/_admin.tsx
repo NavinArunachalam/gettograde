@@ -56,7 +56,7 @@ function AdminLayout() {
   return (
     <PortalShell
       variant="admin"
-      brand="Axon Med Academy"
+      brand="Get To Grade"
       nav={navItems}
       user={{
         name: currentUser.name,

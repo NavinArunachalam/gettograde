@@ -14,7 +14,7 @@ export type OrganizationDetails = {
 };
 
 export const defaultOrganization: OrganizationDetails = {
-  name: "Axon Med Academy",
+  name: "Get To Grade",
   url: "axon.academy",
   email: "hello@axon.academy",
   phone: "+91 98765 43210",

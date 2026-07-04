@@ -13,7 +13,14 @@ export function Faculty() {
         const res = await api.get("/public/faculty");
         if (res.success) {
           const tints = ["from-plum to-plum-dark", "from-plum-dark to-plum"];
-          const listWithTints = (res.facultyList || []).map((f: any, i: number) => ({
+          const seen = new Set<string>();
+          const uniqueList = (res.facultyList || []).filter((f: any) => {
+            const key = f.name?.trim();
+            if (!key || seen.has(key)) return false;
+            seen.add(key);
+            return true;
+          });
+          const listWithTints = uniqueList.map((f: any, i: number) => ({
             ...f,
             tint: tints[i % tints.length]
           }));

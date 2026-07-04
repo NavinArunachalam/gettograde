@@ -100,7 +100,7 @@ function Enroll() {
           </div>
           <h2 className="font-display text-3xl font-bold text-plum-dark">Application Received!</h2>
           <p className="mt-4 text-foreground/65">
-            Thank you for applying to AxonMedAcademy. Your registration is now under review by our admissions team.
+            Thank you for applying to Get To Grade MedAcademy. Your registration is now under review by our admissions team.
           </p>
           <p className="mt-2 text-sm text-foreground/50">
             We will contact you via email once your application has been processed.
@@ -129,7 +129,7 @@ function Enroll() {
           <span className="grid h-10 w-10 place-items-center rounded-xl bg-lime text-plum-dark">
             <Stethoscope className="h-5 w-5" />
           </span>
-          <span className="font-display text-lg font-bold">Axon.Academy</span>
+          <span className="font-display text-lg font-bold">Get To Grade .Academy</span>
         </Link>
 
         <div className="relative">
@@ -161,7 +161,7 @@ function Enroll() {
           </div>
         </div>
 
-        <div className="relative text-xs text-cream/50">© {new Date().getFullYear()} Axon MedAcademy</div>
+        <div className="relative text-xs text-cream/50">© {new Date().getFullYear()} Get To Grade </div>
       </div>
 
       {/* Right form */}
@@ -171,7 +171,7 @@ function Enroll() {
             <span className="grid h-9 w-9 place-items-center rounded-xl bg-plum-dark text-lime">
               <Stethoscope className="h-5 w-5" />
             </span>
-            <span className="font-display font-bold text-plum-dark">AxonMedAcademy</span>
+            <span className="font-display font-bold text-plum-dark">Get To Grade MedAcademy</span>
           </Link>
 
           <header>
