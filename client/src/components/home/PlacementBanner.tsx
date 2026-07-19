@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState } from "react";
 
 const stats = [
-  { v: 100, suffix: "+", l: "Government Selections" },
-  { v: 250, suffix: "+", l: "Success Stories" },
-  { v: 15, suffix: "+", l: "15+ Experts Faculties" },
-  { v: 1000, suffix: "+", l: "Students Across Tamil Nadu & India" },
+  { v: 95, suffix: "%", l: "Placement Rate" },
+  { v: 1000, suffix: "+", l: "Alumni Placed" },
+  { v: 15, suffix: "+", l: "Years Industry Experience" },
+  { v: 6, suffix: "+", l: "Hiring Partners" },
 ];
 
 function useCountUp(target: number, active: boolean) {
@@ -46,8 +46,8 @@ export function PlacementBanner() {
         <div className="max-w-2xl mb-14">
           <div className="text-xs font-mono uppercase tracking-[0.2em] text-lime">— 03 / Outcomes</div>
           <h2 className="mt-3 font-display text-3xl lg:text-5xl font-bold tracking-tight">
-          Results That Speak for Our <br/>
-            <span className="text-lime">Students' Success</span>
+            Results That Speak <br/>
+            <span className="text-lime">for Themselves</span>
           </h2>
         </div>
 

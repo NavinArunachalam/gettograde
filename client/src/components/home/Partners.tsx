@@ -1,4 +1,4 @@
-const HOSPITALS = ["Apollo", "Fortis", "Manipal", "Max Healthcare", "Narayana Health", "Medanta", "Aster", "Columbia Asia", "Kokilaben", "AIIMS", "Tata Memorial", "Lilavati"];
+const HOSPITALS = ["Infosys", "Wipro", "TCS", "Cognizant", "Accenture", "Tech Mahindra", "Capgemini", "IBM", "HCLTech", "Oracle", "Microsoft", "Amazon"];
 
 export function Partners() {
   const row = [...HOSPITALS, ...HOSPITALS];

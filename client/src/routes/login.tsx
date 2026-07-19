@@ -1,5 +1,5 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { Stethoscope, ArrowRight } from "lucide-react";
+import { GraduationCap, ArrowRight } from "lucide-react";
 import { useState } from "react";
 import { classroomStore, type User } from "@/lib/classroomStore";
 import { loginUser } from "@/lib/api";
@@ -51,9 +51,9 @@ function Login() {
 
         <Link to="/" className="relative inline-flex items-center gap-2 w-fit">
           <span className="grid h-10 w-10 place-items-center rounded-xl bg-lime text-plum-dark">
-            <Stethoscope className="h-5 w-5" />
+            <GraduationCap className="h-5 w-5" />
           </span>
-          <span className="font-display text-lg font-bold">Get To Grade</span>
+          <span className="font-display text-lg font-bold">Beyond20</span>
         </Link>
 
         <div className="relative">
@@ -66,7 +66,7 @@ function Login() {
           </p>
         </div>
 
-        <div className="relative text-xs text-cream/50">© {new Date().getFullYear()} Get To Grade</div>
+        <div className="relative text-xs text-cream/50">© {new Date().getFullYear()} Beyond20</div>
       </div>
 
       {/* Right form */}
@@ -74,9 +74,9 @@ function Login() {
         <div className="w-full max-w-md">
           <Link to="/" className="lg:hidden inline-flex items-center gap-2 mb-8">
             <span className="grid h-9 w-9 place-items-center rounded-xl bg-plum-dark text-lime">
-              <Stethoscope className="h-5 w-5" />
+              <GraduationCap className="h-5 w-5" />
             </span>
-            <span className="font-display font-bold text-plum-dark">Get To Grade .Academy</span>
+            <span className="font-display font-bold text-plum-dark">Beyond20</span>
           </Link>
 
           <h2 className="font-display text-3xl font-bold text-plum-dark">Sign in</h2>
@@ -106,7 +106,7 @@ function Login() {
           </div>
 
           <p className="mt-6 text-center text-sm text-foreground/65">
-            New to Get To Grade ? <Link to="/courses" className="font-semibold text-plum-dark">Browse courses →</Link>
+            New to Beyond20? <Link to="/courses" className="font-semibold text-plum-dark">Browse courses →</Link>
           </p>
         </div>
       </div>

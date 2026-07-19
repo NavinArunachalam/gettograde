@@ -39,11 +39,11 @@ export function Footer() {
           </div>
 
           <FCol title="Courses" links={[
-            ["Staff Nursing", "/courses"],
-            ["OT Technician", "/courses"],
-            ["Lab Technician", "/courses"],
-            ["ICU Care", "/courses"],
-            ["Radiology", "/courses"],
+            ["Oracle Cloud (OCI)", "/courses"],
+            ["SAP (S/4HANA)", "/courses"],
+            ["AWS Cloud", "/courses"],
+            ["Microsoft Azure", "/courses"],
+            ["Digital Marketing", "/courses"],
           ]} />
           <FCol title="Academy" links={[
             ["About", "/about"],
@@ -66,7 +66,7 @@ export function Footer() {
         </div>
 
         <div className="mt-14 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-t border-cream/15 pt-6 text-xs text-cream/60">
-          <p>© {new Date().getFullYear()} Get To Grade. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} Beyond20. All rights reserved.</p>
           <div className="flex gap-5">
             <a href="#">Privacy</a><a href="#">Terms</a><a href="#">Accessibility</a>
           </div>

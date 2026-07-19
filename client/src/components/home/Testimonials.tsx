@@ -13,9 +13,9 @@ const API_BASE = (() => {
 })();
 
 const FALLBACK_ITEMS = [
-  { name: "Priya Krishnan", roll: "Staff Nurse · Apollo Hospitals", review: "From classroom to a top hospital in 8 months. The proctored exams gave my employer real confidence.", initials: "PK", image: null },
-  { name: "Arjun Reddy",    roll: "OT Technician · Manipal",review: "The hands-on OT simulation modules made my transition to the operating theatre seamless. Top-tier faculty.", initials: "AR", image: null },
-  { name: "Sneha Pillai",   roll: "Lab Technician · Fortis",review: "I started with ₹999/month EMI and now earn 6× that monthly. The placement team was relentlessly supportive.", initials: "SP", image: null },
+  { name: "Aditya Sharma", roll: "OCI Specialist · Wipro", review: "From zero cloud experience to clearing the OCI Architect certification and landing an offer at Wipro. The hands-on labs made all the difference.", initials: "AS", image: null },
+  { name: "Meera Nair",    roll: "SAP Consultant · Infosys", review: "The S/4HANA business simulations gave me practical exposure that was directly applicable. The trainers bring real-world enterprise scenarios.", initials: "MN", image: null },
+  { name: "Rohan Das",     roll: "Digital Marketer · Top MNC", review: "Running live ad campaigns during the course helped me build a portfolio. The placement support prepared me perfectly for interviews.", initials: "RD", image: null },
 ];
 
 function VideoThumbnail({ video, streamUrl, className }: { video: any; streamUrl: string; className?: string }) {

@@ -1,12 +1,12 @@
-import { Video, ShieldCheck, Award, Briefcase, Users, CreditCard } from "lucide-react";
+import { Users, BookOpen, TrendingUp, Code, UserCheck, Briefcase } from "lucide-react";
 
 const items = [
-  { icon: Video, title: "Live + Recorded Interactive Classes", desc: "Flexible learning at your own pace with HD recordings of every session." },
-  { icon: ShieldCheck, title: "AIAPGET & MRB Patern Mock Tests", desc: "Complete syllabus tests that simulate the actual (AIAPGET & MRB) exam pattern with rank analysis." },
-  { icon: Award, title: "Consise Notes & Smart Revision PDFs", desc: "Lifetime-verifiable credentials with QR-based proof of authenticity." },
-  { icon: Briefcase, title: "Rank-Oriented Preparation", desc: "Telegram support, regular live discussion sessions, and updated notes & materials for every student." },
-  { icon: Users, title: "Experienced Sidhha Faculty", desc: "Simplify complex concepts through mnemonics, story-based learning, and bilingual explanations." },
-  { icon: CreditCard, title: "Affordable Fees & EMI Available", desc: "Begin your career journey for as little as ₹999/month, no hidden fees." },
+  { icon: Users, title: "15+ Years Experienced Trainers", desc: "Every trainer at Beyond20 has spent over a decade and a half working in the industry before stepping into the classroom. You learn from professionals." },
+  { icon: BookOpen, title: "Full-Fledged Curriculum", desc: "Our Oracle Cloud, SAP, AWS and Azure programs are designed end-to-end, from fundamentals to advanced architecture, so you never need fragmented learning." },
+  { icon: TrendingUp, title: "Proven Placement Track Record", desc: "Our alumni are currently working at Infosys, Wipro, and other leading MNCs, reflecting the high standard of our training and mentorship." },
+  { icon: Code, title: "Hands-On, Project-Based Learning", desc: "Every module includes live demonstrations, hands-on labs, and real-time project work, so you graduate with a solid portfolio." },
+  { icon: UserCheck, title: "Small Batches, Personal Attention", desc: "We keep batch sizes manageable so every learner gets direct access to the trainer and personal feedback throughout their learning path." },
+  { icon: Briefcase, title: "Dedicated Placement Support", desc: "From resume building and LinkedIn optimization to mock interviews and direct referrals, our placement cell works with you until you get hired." },
 ];
 
 export function WhyUs() {
@@ -14,9 +14,9 @@ export function WhyUs() {
     <section className="py-10 lg:py-16 bg-secondary/40">
       <div className="mx-auto w-full max-w-[1400px] px-5 lg:px-8">
         <div className="max-w-2xl">
-          <div className="text-xs font-mono uppercase tracking-[0.2em] text-plum">— 02 / Why Axon</div>
+          <div className="text-xs font-mono uppercase tracking-[0.2em] text-plum">— 02 / Why Beyond20</div>
           <h2 className="mt-3 font-display text-3xl lg:text-5xl font-bold text-plum-dark tracking-tight">
-            Built for the realities<br />of modern healthcare.
+            Built for the realities<br />of modern tech careers.
           </h2>
         </div>
 

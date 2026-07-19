@@ -48,7 +48,7 @@ export function Faculty() {
           <div className="max-w-xl">
             <div className="text-xs font-mono uppercase tracking-[0.2em] text-plum">— 04 / Faculty</div>
             <h2 className="mt-3 font-display text-3xl lg:text-5xl font-bold text-plum-dark tracking-tight">
-              Taught by clinicians,<br/>not just instructors.
+              Taught by industry veterans,<br/>not just instructors.
             </h2>
           </div>
           <div className="flex gap-2">

@@ -318,7 +318,7 @@ function LiveClassroomRoom() {
         <div className="meeting-header-left">
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#fff', flexShrink: 0 }}>
             <div style={{ width: '28px', height: '28px', borderRadius: '7px', background: 'linear-gradient(135deg, #7C3AED, #A855F7)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M15 10l4.553-2.069A1 1 0 0121 8.82v6.362a1 1 0 01-1.447.894L15 14M3 8a2 2 0 012-2h8a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V8z" /></svg></div>
-            <span className="logo-text" style={{ fontWeight: '800', fontSize: '14px' }}>Get To Grade  Meeting</span>
+            <span className="logo-text" style={{ fontWeight: '800', fontSize: '14px' }}>Beyond20 Meeting</span>
           </div>
           <div style={{ width: '1px', height: '20px', background: 'var(--border)', flexShrink: 0 }} />
           {displayRoomId && <div className="room-code-badge">{displayRoomId}</div>}

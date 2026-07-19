@@ -14,15 +14,15 @@ export type OrganizationDetails = {
 };
 
 export const defaultOrganization: OrganizationDetails = {
-  name: "Get To Grade",
-  url: "axon.academy",
-  email: "hello@axon.academy",
+  name: "Beyond20",
+  url: "beyond20.academy",
+  email: "info@beyond20.academy",
   phone: "+91 98765 43210",
-  hours: "Monday - Saturday, 9 AM to 8 PM",
-  address: "Plot 21, Medical Campus, Hosur Road, Bengaluru - 560001",
+  hours: "Monday - Saturday, 9 AM to 7 PM",
+  address: "Plot 42, Tech Park, Outer Ring Road, Bengaluru - 560103",
   gst: "29AABCM1234C1ZK",
   timezone: "Asia/Kolkata",
-  about: "India's most trusted paramedical training academy.",
+  about: "Welcome to Beyond20 — a professional training academy built for turning learners into industry-ready professionals.",
 };
 
 export function normalizeOrganization(raw: Partial<OrganizationDetails> = {}): OrganizationDetails {

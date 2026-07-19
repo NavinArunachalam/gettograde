@@ -39,8 +39,7 @@ function FacultyPage() {
             Learn from the <span className="text-plum">best</span> in the industry.
           </h1>
           <p className="mt-8 max-w-2xl text-lg text-foreground/70 leading-relaxed">
-            Our faculty includes experienced doctors, senior nurses, and hospital administrators
-            who bring real-world expertise to every lesson.
+            Our faculty includes industry veterans with 15+ years of hands-on experience in Oracle Cloud, SAP, AWS, Microsoft Azure, and Full Stack Digital Marketing.
           </p>
         </div>
       </section>

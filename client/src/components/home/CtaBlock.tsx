@@ -13,11 +13,11 @@ export function CtaBlock() {
           <div className="relative max-w-2xl">
             <div className="text-xs font-mono uppercase tracking-[0.2em] text-lime">— Next Cohort Open</div>
             <h2 className="mt-4 font-display text-4xl lg:text-6xl font-bold tracking-tight leading-[1.05]">
-              Your hospital badge is<br />
-              <span className="bg-lime text-plum-dark px-3 rounded-lg">8 months away.</span>
+              Your dream IT career is<br />
+              <span className="bg-lime text-plum-dark px-3 rounded-lg">just weeks away.</span>
             </h2>
             <p className="mt-6 text-lg text-cream/75 max-w-lg">
-              Limited seats per cohort. Lock yours today with a refundable ₹999 hold — no commitment required.
+              Limited seats per cohort. Talk to our expert counsellors and start your learning journey today.
             </p>
             <div className="mt-10 flex flex-wrap gap-3">
               <Link to="/courses" className="group inline-flex items-center gap-2 rounded-full bg-lime px-7 py-4 text-sm font-bold text-plum-dark hover:bg-cream transition">

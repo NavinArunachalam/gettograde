@@ -3,14 +3,12 @@ import { Plus, Minus } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 
 const faqs = [
-  { q: "What types of courses are available for AIAPGET & MRB ?"
-, a: "We offer both Regular Courses and Test Batch Programs tailored for AIAPGET & MRB preparation." },
-  { q: "Are AIAPGET & MRB conducted together or separately?", a: "Both are handled through separate classes, with different teaching patterns and strategies for each exam." },
-  { q: "Will modern study materials be provided?", a: "Yes! We provide updated and high-quality modern study materials for effective preparation." },
-  { q: "Are recorded classes available?", a: "Yes, recorded classes are available so you can learn and revise anytime." },
-  { q: "Are live classes conducted? When do they take place?", a: "Yes! Live interactive classes are conducted every Sunday. Time: 8:00 PM – 9:00 PM." },
-  { q: "Can I pay the course fee in installments (EMI)?", a: "Yes, you can pay through 3–4 flexible installments for your convenience." },
-  
+  { q: "Do you offer both weekday and weekend batches?", a: "Yes. Beyond20 offers flexible weekday and weekend batch options across Oracle Cloud, SAP, AWS, Azure and Digital Marketing courses, so working professionals and students can choose what fits their schedule." },
+  { q: "Is placement support included with every course?", a: "Yes, all eligible students who complete their program receive placement support, including resume building, mock interviews, and access to our hiring partner network." },
+  { q: "Do I need a technical background to join?", a: "It depends on the course. Our counsellors will help assess your background during a free consultation and recommend the right starting point." },
+  { q: "Are recorded classes available for revision?", a: "Yes, every live session is recorded and made available on the student portal within a few hours, offering lifetime access for revision." },
+  { q: "Who are the trainers at Beyond20?", a: "Every trainer at Beyond20 is a working industry practitioner with over 15 years of hands-on experience in their respective domain (OCI, SAP, AWS, Azure, or Digital Marketing)." },
+  { q: "Can I pay the course fee in installments?", a: "Yes, we support flexible payment options and interest-free EMI plans. Get in touch with our counsellors for exact fee structures." },
 ];
 
 export function FAQ() {

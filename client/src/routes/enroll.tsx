@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Stethoscope, CheckCircle2, ArrowRight, Loader2 } from "lucide-react";
+import { GraduationCap, CheckCircle2, ArrowRight, Loader2 } from "lucide-react";
 import { useState, useEffect } from "react";
 import {  getAdminPrograms, type RegisterStudentData, type ProgramCourse } from "@/lib/api";
 import { submitToGoogleSheet } from "@/lib/googleSheets";
@@ -100,7 +100,7 @@ function Enroll() {
           </div>
           <h2 className="font-display text-3xl font-bold text-plum-dark">Application Received!</h2>
           <p className="mt-4 text-foreground/65">
-            Thank you for applying to Get To Grade MedAcademy. Your registration is now under review by our admissions team.
+            Thank you for applying to Beyond20. Your registration is now under review by our admissions team.
           </p>
           <p className="mt-2 text-sm text-foreground/50">
             We will contact you via email once your application has been processed.
@@ -127,19 +127,19 @@ function Enroll() {
         
         <Link to="/" className="relative inline-flex items-center gap-2 w-fit">
           <span className="grid h-10 w-10 place-items-center rounded-xl bg-lime text-plum-dark">
-            <Stethoscope className="h-5 w-5" />
+            <GraduationCap className="h-5 w-5" />
           </span>
-          <span className="font-display text-lg font-bold">Get To Grade .Academy</span>
+          <span className="font-display text-lg font-bold">Beyond20</span>
         </Link>
 
         <div className="relative">
           <h1 className="font-display text-4xl font-bold leading-[1.1] tracking-[-0.02em]">
             Start your<br />
-            <span className="text-lime">medical career</span><br />
+            <span className="text-lime">cloud & tech career</span><br />
             journey here.
           </h1>
           <p className="mt-6 text-cream/70 text-sm leading-relaxed">
-            Join a community of dedicated healthcare professionals. Complete the form to begin your enrollment process.
+            Join a community of dedicated technology and digital marketing professionals. Complete the form to begin your enrollment process.
           </p>
           
           <div className="mt-10 space-y-6">
@@ -161,7 +161,7 @@ function Enroll() {
           </div>
         </div>
 
-        <div className="relative text-xs text-cream/50">© {new Date().getFullYear()} Get To Grade </div>
+        <div className="relative text-xs text-cream/50">© {new Date().getFullYear()} Beyond20</div>
       </div>
 
       {/* Right form */}
@@ -169,9 +169,9 @@ function Enroll() {
         <div className="mx-auto max-w-2xl">
           <Link to="/" className="lg:hidden inline-flex items-center gap-2 mb-8">
             <span className="grid h-9 w-9 place-items-center rounded-xl bg-plum-dark text-lime">
-              <Stethoscope className="h-5 w-5" />
+              <GraduationCap className="h-5 w-5" />
             </span>
-            <span className="font-display font-bold text-plum-dark">Get To Grade MedAcademy</span>
+            <span className="font-display font-bold text-plum-dark">Beyond20</span>
           </Link>
 
           <header>
@@ -252,7 +252,7 @@ function Enroll() {
                   value={formData.qualification}
                   onChange={handleChange}
                   type="text"
-                  placeholder="e.g. MBBS, BHMS"
+                  placeholder="e.g. B.Tech, MCA, B.Com"
                   className="w-full rounded-xl border border-border bg-card px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-plum/20 focus:border-plum transition-all"
                 />
               </div>

@@ -49,14 +49,14 @@ function Settings() {
 
   // 1. Organization
   const [org, setOrg] = useState({
-    name: "Get To Grade",
-    url: "axonmedacademy",
-    email: "hello@axon.academy",
+    name: "Beyond20",
+    url: "beyond20.academy",
+    email: "info@beyond20.academy",
     phone: "+91 98765 43210",
     gst: "29AABCM1234C1ZK",
     timezone: "Asia/Kolkata",
-    address: "Plot 21, Medical Campus,\nBengaluru 560001",
-    about: "India's most trusted paramedical training academy."
+    address: "Plot 42, Tech Park, Outer Ring Road,\nBengaluru 560103",
+    about: "Welcome to Beyond20 — a professional training academy built for turning learners into industry-ready professionals."
   });
   const [isLoadingOrg, setIsLoadingOrg] = useState(false);
   const [isSavingOrg, setIsSavingOrg] = useState(false);

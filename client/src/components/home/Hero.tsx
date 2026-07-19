@@ -1,12 +1,12 @@
 import { motion } from "framer-motion";
 import { Link } from "@tanstack/react-router";
-import { ArrowRight, Play, Sparkles, Activity, HeartPulse, Pill, Microscope } from "lucide-react";
+import { ArrowRight, Play, Sparkles, Cloud, Server, Code, Terminal, Cpu } from "lucide-react";
 
 const stats = [
-  { v: "5,000+", l: "Sidhha Aspirants Mentored " },
-  { v: "1,00,000", l: "MCQs Practiced" },
-  { v: "500+", l: "Government Selection/Rank Holders" },
-  { v: "10+", l: "AIAPGET.MRB.Crash Courses.Test Series" },
+  { v: "15+", l: "Years Expert Trainers" },
+  { v: "1,000+", l: "Alumni Placed" },
+  { v: "100%", l: "Hands-on Project Labs" },
+  { v: "5", l: "Full-Fledged Programs" },
 ];
 
 export function Hero() {
@@ -27,7 +27,7 @@ export function Hero() {
               className="inline-flex items-center gap-2 rounded-full bg-plum-dark/5 border border-plum-dark/10 px-3 py-1.5 text-xs font-semibold text-plum-dark"
             >
               <Sparkles className="h-3.5 w-3.5 text-plum" />
-              India's #1 Siddha & AYUSH Academy
+              Professional IT & Digital Marketing Academy
             </motion.div>
 
             <motion.h1
@@ -36,12 +36,11 @@ export function Hero() {
               transition={{ duration: 0.6, delay: 0.05 }}
               className="mt-5 font-display font-bold text-plum-dark text-balance text-[40px] sm:text-[56px] lg:text-[68px] leading-[1.02] tracking-[-0.03em]"
             >
-          Prepare. Practice.Crack{" "}
+              Go Beyond. Skill Beyond.{" "}
               <span className="relative inline-block">
-                <span className="relative z-10"> AIAPGET & MRB.</span>
+                <span className="relative z-10"> Career Beyond Limits.</span>
                 <span className="absolute inset-x-0 bottom-1 h-3 lg:h-4 bg-lime -z-0 rounded-sm" />
               </span>{" "}
- 
             </motion.h1>
 
             <motion.p
@@ -50,7 +49,7 @@ export function Hero() {
               transition={{ duration: 0.6, delay: 0.15 }}
               className="mt-6 max-w-xl text-base lg:text-lg text-foreground/70 leading-relaxed"
             >
-              Master high-yield concepts, smart revision strategies, daily MCQs, grand tests, and expert guidance to secure top ranks in AIAPGET & MRB Siddha examinations.
+              Welcome to Beyond20 — a professional training academy built for turning learners into industry-ready professionals. Master Oracle Cloud, SAP, AWS, Azure, and Digital Marketing with trainers holding 15+ years of experience.
             </motion.p>
 
             <motion.div
@@ -66,12 +65,15 @@ export function Hero() {
                 Explore Courses
                 <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
               </Link>
-              <button className="inline-flex items-center gap-2 rounded-full border border-plum-dark/15 bg-white/50 backdrop-blur px-6 py-3.5 text-sm font-semibold text-plum-dark hover:bg-white transition">
+              <Link
+                to="/contact"
+                className="inline-flex items-center gap-2 rounded-full border border-plum-dark/15 bg-white/50 backdrop-blur px-6 py-3.5 text-sm font-semibold text-plum-dark hover:bg-white transition"
+              >
                 <span className="grid h-7 w-7 place-items-center rounded-full bg-lime text-plum-dark">
                   <Play className="h-3 w-3 fill-current" />
                 </span>
                 Book a Free Demo
-              </button>
+              </Link>
             </motion.div>
 
             <motion.div
@@ -113,24 +115,19 @@ function HeroArt() {
         <div className="absolute inset-0 bg-noise opacity-30" />
         <div className="absolute -top-20 -right-10 h-64 w-64 rounded-full bg-lime/30 blur-3xl" />
 
-        {/* ECG line */}
-        <svg viewBox="0 0 400 100" className="absolute top-1/2 -translate-y-1/2 inset-x-0 w-full text-lime/60">
-          <motion.path
-            d="M0 50 L80 50 L100 20 L120 80 L140 35 L160 50 L260 50 L280 25 L300 75 L320 40 L340 50 L400 50"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            initial={{ pathLength: 0 }}
-            animate={{ pathLength: 1 }}
-            transition={{ duration: 2.5, repeat: Infinity, repeatType: "loop", ease: "linear" }}
-          />
+        {/* Tech Grid / Connection lines SVG */}
+        <svg viewBox="0 0 400 400" className="absolute inset-0 w-full h-full text-lime/30" stroke="currentColor" strokeWidth="1" fill="none">
+          <circle cx="200" cy="200" r="120" strokeDasharray="5,5" />
+          <circle cx="200" cy="200" r="180" strokeDasharray="3,3" />
+          <line x1="200" y1="20" x2="200" y2="380" />
+          <line x1="20" y1="200" x2="380" y2="200" />
         </svg>
 
         {/* Floating chips */}
-        <FloatChip icon={HeartPulse} label="Live Vitals" pos="top-8 left-6" delay={0} />
-        <FloatChip icon={Activity} label="Pulse 76" pos="top-24 right-4" delay={0.4} />
-        <FloatChip icon={Microscope} label="Lab Module" pos="bottom-28 left-4" delay={0.8} />
-        <FloatChip icon={Pill} label="Pharma Prep" pos="bottom-8 right-6" delay={1.2} />
+        <FloatChip icon={Cloud} label="Oracle Cloud" pos="top-8 left-6" delay={0} />
+        <FloatChip icon={Server} label="AWS & Azure" pos="top-24 right-4" delay={0.4} />
+        <FloatChip icon={Code} label="SAP S/4HANA" pos="bottom-28 left-4" delay={0.8} />
+        <FloatChip icon={Terminal} label="Marketing" pos="bottom-8 right-6" delay={1.2} />
 
         {/* Center card */}
         <motion.div
@@ -141,21 +138,21 @@ function HeroArt() {
         >
           <div className="flex items-center gap-3">
             <div className="grid h-10 w-10 place-items-center rounded-xl bg-lime">
-              <HeartPulse className="h-5 w-5 text-plum-dark" />
+              <Cpu className="h-5 w-5 text-plum-dark" />
             </div>
             <div className="flex-1">
-              <div className="text-xs text-plum-dark/60 font-medium">Now Live</div>
-              <div className="text-sm font-semibold text-plum-dark">Siddha & AYUSH Examinations</div>
+              <div className="text-xs text-plum-dark/60 font-medium">Next Cohort</div>
+              <div className="text-sm font-semibold text-plum-dark">Cloud & SAP Training</div>
             </div>
             <div className="text-[10px] font-bold uppercase text-plum-dark bg-lime rounded-full px-2 py-1">
-              LIVE
+              OPEN
             </div>
           </div>
           <div className="mt-3 h-1.5 w-full rounded-full bg-plum-dark/10 overflow-hidden">
             <motion.div
               className="h-full bg-plum-dark rounded-full"
               initial={{ width: "0%" }}
-              animate={{ width: "62%" }}
+              animate={{ width: "85%" }}
               transition={{ duration: 1.5, delay: 0.6 }}
             />
           </div>
@@ -171,7 +168,7 @@ function FloatChip({
   pos,
   delay,
 }: {
-  icon: typeof HeartPulse;
+  icon: typeof Cloud;
   label: string;
   pos: string;
   delay: number;

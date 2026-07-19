@@ -49,15 +49,13 @@ function About() {
         <div className="absolute inset-0 -z-10 bg-grid opacity-60" />
         <div className="absolute -z-10 top-0 right-0 h-[500px] w-[500px] rounded-full bg-lime/25 blur-3xl" />
         <div className="mx-auto max-w-7xl px-5 lg:px-8">
-          <div className="text-xs font-mono uppercase tracking-[0.2em] text-plum">— About Get To Grade </div>
+          <div className="text-xs font-mono uppercase tracking-[0.2em] text-plum">— About Beyond20</div>
           <h1 className="mt-3 max-w-4xl font-display text-4xl lg:text-7xl font-bold text-plum-dark tracking-[-0.03em] leading-[1.02]">
-            Built by clinicians,<br />
-            <span className="text-plum">for the next generation</span> of clinicians.
+            Built by industry experts,<br />
+            <span className="text-plum">for the next generation</span> of professionals.
           </h1>
           <p className="mt-8 max-w-2xl text-lg text-foreground/70 leading-relaxed">
-            Get To Grade  was started in 2018 by a small group of doctors, senior nurses, and hospital
-            administrators who saw a single truth — India needs more well-trained paramedical
-            professionals, and the path to becoming one should be rigorous, transparent, and humane.
+            Beyond20 was built on a simple belief: quality training should take you beyond the classroom and into a real career. We are a professional training academy focused on high-demand technology and digital skills — Oracle Cloud Infrastructure, SAP, AWS, Microsoft Azure, and Full Stack Digital Marketing — delivered by trainers who have spent 15+ years working in the industries they now teach.
           </p>
         </div>
       </section>
@@ -101,6 +99,9 @@ function About() {
         <div className="mx-auto max-w-4xl px-5 lg:px-8">
           <div className="text-xs font-mono uppercase tracking-[0.2em] text-plum">— Our Story</div>
           <h2 className="mt-3 font-display text-3xl lg:text-5xl font-bold text-plum-dark tracking-tight">From a single classroom to a national academy.</h2>
+          <p className="mt-6 text-foreground/70 leading-relaxed text-sm">
+            Beyond20 was founded to close a gap we saw again and again: talented learners completing courses that were long on theory and short on real-world relevance. We set out to build something different — full-fledged programs, taught by genuine industry practitioners, designed around what employers are actually hiring for. That focus has shaped every course, every batch, and every mentoring relationship since.
+          </p>
 
           <div className="mt-14 relative">
             <div className="absolute left-[27px] top-2 bottom-2 w-px bg-plum/30" />
