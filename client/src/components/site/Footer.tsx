@@ -15,8 +15,8 @@ export function Footer() {
         <div className="grid gap-12 lg:grid-cols-12">
           <div className="lg:col-span-4">
             <Link to="/" className="flex items-center gap-2">
-              <span className="grid h-10 w-10 place-items-center rounded-full text-plum-dark">
-                <img src="/logo.jpeg" alt={organization.name} className="h-full w-full rounded-full" />
+              <span className="relative block h-10 w-10 overflow-hidden rounded-xl">
+                <img src="/logo.jpeg" alt={organization.name} className="h-full w-full object-cover" />
               </span>
               <span className="font-display text-lg font-bold text-cream">
                 {organization.name}

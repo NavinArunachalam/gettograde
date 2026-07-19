@@ -126,8 +126,8 @@ function Enroll() {
         <div className="absolute -top-40 -left-40 h-96 w-96 rounded-full bg-lime/30 blur-3xl" />
         
         <Link to="/" className="relative inline-flex items-center gap-2 w-fit">
-          <span className="grid h-10 w-10 place-items-center rounded-xl bg-lime text-plum-dark">
-            <GraduationCap className="h-5 w-5" />
+          <span className="relative block h-10 w-10 overflow-hidden rounded-xl">
+            <img src="/logo.jpeg" alt="Beyond20" className="h-full w-full object-cover" />
           </span>
           <span className="font-display text-lg font-bold">Beyond20</span>
         </Link>
@@ -168,8 +168,8 @@ function Enroll() {
       <div className="flex-1 overflow-y-auto bg-background p-6 lg:p-12 lg:px-20">
         <div className="mx-auto max-w-2xl">
           <Link to="/" className="lg:hidden inline-flex items-center gap-2 mb-8">
-            <span className="grid h-9 w-9 place-items-center rounded-xl bg-plum-dark text-lime">
-              <GraduationCap className="h-5 w-5" />
+            <span className="relative block h-9 w-9 overflow-hidden rounded-xl">
+              <img src="/logo.jpeg" alt="Beyond20" className="h-full w-full object-cover" />
             </span>
             <span className="font-display font-bold text-plum-dark">Beyond20</span>
           </Link>
