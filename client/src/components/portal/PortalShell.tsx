@@ -21,6 +21,7 @@ interface User {
 interface PortalShellProps {
   variant: "admin" | "student";
   brand: string;
+  logo?: string;
   nav: NavItem[];
   user: User;
   children: React.ReactNode;
@@ -28,7 +29,7 @@ interface PortalShellProps {
 
 // ─── PortalShell ─────────────────────────────────────────────────────────────
 
-export function PortalShell({ variant, brand, nav, user, children }: PortalShellProps) {
+export function PortalShell({ variant, brand, logo, nav, user, children }: PortalShellProps) {
   const location = useLocation();
   const currentPath = location.pathname;
   const isAdmin = variant === "admin";
@@ -62,7 +63,14 @@ export function PortalShell({ variant, brand, nav, user, children }: PortalShell
   const SidebarContent = () => (
     <>
       <div className={`h-16 flex items-center justify-between px-6 border-b ${isAdmin ? "border-white/5" : "border-slate-200"} font-display font-bold text-lg tracking-tight ${brandColorClass} shrink-0`}>
-        {brand}
+        <div className="flex items-center gap-2">
+          {logo && (
+            <span className="relative block h-8 w-8 overflow-hidden rounded-lg shrink-0">
+              <img src={logo} alt={brand} className="h-full w-full object-cover" />
+            </span>
+          )}
+          <span>{brand}</span>
+        </div>
         <button className="md:hidden" onClick={() => setMobileMenuOpen(false)}>
           <X className="w-5 h-5 opacity-70" />
         </button>
@@ -130,7 +138,14 @@ export function PortalShell({ variant, brand, nav, user, children }: PortalShell
       <main className="flex-1 flex flex-col min-w-0 h-screen overflow-y-auto overflow-x-hidden">
         {/* Mobile Header */}
         <div className={`md:hidden flex items-center justify-between h-16 px-4 border-b sticky top-0 z-40 ${isAdmin ? "bg-[#110828] border-white/5" : "bg-white border-slate-200"}`}>
-          <div className={`font-display font-bold text-lg ${brandColorClass}`}>{brand}</div>
+          <div className="flex items-center gap-2">
+            {logo && (
+              <span className="relative block h-8 w-8 overflow-hidden rounded-lg shrink-0">
+                <img src={logo} alt={brand} className="h-full w-full object-cover" />
+              </span>
+            )}
+            <div className={`font-display font-bold text-lg ${brandColorClass}`}>{brand}</div>
+          </div>
           <button onClick={() => setMobileMenuOpen(true)} className="p-2 -mr-2">
             <Menu className="w-5 h-5 opacity-70" />
           </button>

@@ -56,8 +56,12 @@ function Settings() {
     gst: "29AABCM1234C1ZK",
     timezone: "Asia/Kolkata",
     address: "Plot 42, Tech Park, Outer Ring Road,\nBengaluru 560103",
-    about: "Welcome to Beyond20 — a professional training academy built for turning learners into industry-ready professionals."
+    about: "Welcome to Beyond20 — a professional training academy built for turning learners into industry-ready professionals.",
+    logo: ""
   });
+  const [logoFile, setLogoFile] = useState<File | null>(null);
+  const [logoPreview, setLogoPreview] = useState<string | null>(null);
+  const logoInputRef = useRef<HTMLInputElement>(null);
   const [isLoadingOrg, setIsLoadingOrg] = useState(false);
   const [isSavingOrg, setIsSavingOrg] = useState(false);
 
@@ -72,6 +76,7 @@ function Settings() {
       timezone: contactDetails.timezone || current.timezone,
       address: contactDetails.address || current.address,
       about: contactDetails.about || current.about,
+      logo: contactDetails.logo || ""
     }));
   };
 
@@ -291,9 +296,27 @@ function Settings() {
     e.preventDefault();
     setIsSavingOrg(true);
     try {
-      const res = await api.put("/admin/contact-details", org);
+      const fd = new FormData();
+      fd.append("name", org.name);
+      fd.append("url", org.url);
+      fd.append("email", org.email);
+      fd.append("phone", org.phone);
+      fd.append("gst", org.gst);
+      fd.append("timezone", org.timezone);
+      fd.append("address", org.address);
+      fd.append("about", org.about);
+      if (logoFile) {
+        fd.append("logo", logoFile);
+      } else if ((org as any).removeLogo) {
+        fd.append("removeLogo", "true");
+      }
+
+      const res = await api.multipart("/admin/contact-details", "PUT", fd);
       if (res.success) {
         if (res.contactDetails) applyOrgDetails(res.contactDetails);
+        setLogoFile(null);
+        setLogoPreview(null);
+        if (logoInputRef.current) logoInputRef.current.value = "";
         showToast("Organization settings saved successfully!");
       }
     } catch (err: any) {
@@ -309,6 +332,9 @@ function Settings() {
       const res = await api.delete("/admin/contact-details");
       if (res.success) {
         if (res.contactDetails) applyOrgDetails(res.contactDetails);
+        setLogoFile(null);
+        setLogoPreview(null);
+        if (logoInputRef.current) logoInputRef.current.value = "";
         showToast("Organization settings reset successfully!");
       }
     } catch (err: any) {
@@ -389,6 +415,60 @@ function Settings() {
               </div>
 
               <form onSubmit={handleSaveOrg} className="space-y-5">
+                {/* Logo Upload Section */}
+                <div className="flex items-center gap-5 pb-4 border-b border-cream/10">
+                  <div className="relative shrink-0">
+                    <div className="h-20 w-20 overflow-hidden rounded-2xl bg-cream/5 border-2 border-dashed border-cream/10 grid place-items-center">
+                      {logoPreview ? (
+                        <img src={logoPreview} alt="Logo Preview" className="h-full w-full object-cover" />
+                      ) : org.logo ? (
+                        <img src={getAssetUrl(org.logo)} alt="Logo" className="h-full w-full object-cover" />
+                      ) : (
+                        <Building2 className="h-8 w-8 text-cream/15" />
+                      )}
+                    </div>
+                    {(logoPreview || org.logo) && (
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setLogoFile(null);
+                          setLogoPreview(null);
+                          setOrg((o) => ({ ...o, logo: "", removeLogo: true }));
+                          if (logoInputRef.current) logoInputRef.current.value = "";
+                        }}
+                        className="absolute -top-1.5 -right-1.5 h-6 w-6 rounded-full bg-red-500 text-white grid place-items-center shadow hover:bg-red-600 transition-colors"
+                      >
+                        <X className="h-3 w-3" />
+                      </button>
+                    )}
+                  </div>
+                  <div className="flex flex-col gap-2">
+                    <button
+                      type="button"
+                      onClick={() => logoInputRef.current?.click()}
+                      className="inline-flex items-center gap-2 rounded-full bg-cream/10 hover:bg-cream/20 text-cream border border-cream/10 px-4 py-2 text-xs font-bold transition-colors"
+                    >
+                      <Upload className="h-3.5 w-3.5" />
+                      {logoPreview || org.logo ? "Change Logo" : "Upload Logo"}
+                    </button>
+                    <p className="text-[10px] text-cream/30 uppercase tracking-[0.15em]">JPG, PNG, WebP or SVG · Max 2MB</p>
+                    <input
+                      ref={logoInputRef}
+                      type="file"
+                      accept="image/*"
+                      className="hidden"
+                      onChange={(e) => {
+                        const file = e.target.files?.[0];
+                        if (file) {
+                          setLogoFile(file);
+                          setLogoPreview(URL.createObjectURL(file));
+                          setOrg((o) => ({ ...o, removeLogo: false }));
+                        }
+                      }}
+                    />
+                  </div>
+                </div>
+
                 <div className="grid sm:grid-cols-2 gap-5">
                   <div>
                     <label className="text-[10px] uppercase tracking-widest text-cream/60">Academy name</label>

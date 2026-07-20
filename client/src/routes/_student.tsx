@@ -7,6 +7,7 @@ import {
 import { PortalShell } from "@/components/portal/PortalShell";
 import { classroomActions, useClassroomStore } from "@/lib/classroomStore";
 import { getMyClassrooms } from "@/lib/api";
+import { useOrganizationDetails } from "@/lib/organization";
 
 const NAV = [
   { label: "Dashboard", to: "/student/dashboard", icon: LayoutDashboard },
@@ -28,6 +29,7 @@ function StudentLayout() {
   const { currentUser } = useClassroomStore();
   const [loadError, setLoadError] = useState("");
   const [hasMounted, setHasMounted] = useState(false);
+  const organization = useOrganizationDetails();
 
   useEffect(() => {
     setHasMounted(true);
@@ -65,7 +67,8 @@ function StudentLayout() {
   return (
     <PortalShell
       variant="student"
-      brand="Beyond20"
+      brand={organization.name}
+      logo={organization.logo}
       nav={NAV}
       user={{
         name: currentUser.name,

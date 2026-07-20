@@ -322,6 +322,20 @@ export async function getCurrentUser() {
   return fetchJson('/auth/me');
 }
 
+export async function forgotPassword(email: string) {
+  return fetchJson('/auth/forgot-password', {
+    method: 'POST',
+    body: JSON.stringify({ email }),
+  });
+}
+
+export async function resetPassword(data: { email: string; otp: string; newPassword: string }) {
+  return fetchJson('/auth/reset-password', {
+    method: 'POST',
+    body: JSON.stringify(data),
+  });
+}
+
 export async function updateMyProfile(data: { fullName?: string; phone?: string; address?: string }) {
   return fetchJson('/auth/me', {
     method: 'PUT',

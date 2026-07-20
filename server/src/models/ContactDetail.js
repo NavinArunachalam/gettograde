@@ -9,7 +9,9 @@ const contactDetailSchema = new mongoose.Schema({
   address: { type: String, default: '' },
   gst:     { type: String, default: '' },
   timezone:{ type: String, default: 'Asia/Kolkata' },
-  about:   { type: String, default: '' }
+  about:   { type: String, default: '' },
+  logo:    { type: String, default: '' },
+  logoPublicId: { type: String, default: '' }
 }, {
   timestamps: true
 });

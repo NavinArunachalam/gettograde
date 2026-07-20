@@ -345,3 +345,55 @@ exports.sendMeetingScheduledEmail = async (student, meeting, classroomName) => {
   console.log(`[Email] ✅ Meeting notification sent to ${student.email} — ID: ${data?.id}`);
   return true;
 };
+
+exports.sendPasswordResetEmail = async (user, otp) => {
+  const fromEmail = process.env.EMAIL_FROM || 'onboarding@resend.dev';
+  const resend = getResend();
+
+  const { data, error } = await resend.emails.send({
+    from: `Beyond20 <${fromEmail}>`,
+    to: [user.email],
+    subject: '🔐 Your Password Reset Verification Code',
+    html: `
+      <div style="font-family: 'Helvetica Neue', Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; border: 1px solid #e2e8f0; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 24px rgba(0,0,0,0.08);">
+        <!-- Header -->
+        <div style="background: linear-gradient(135deg, #1A0F33 0%, #4C1D95 100%); color: #fff; padding: 32px 28px; text-align: center;">
+          <h1 style="margin: 0; font-size: 26px; font-weight: 700; letter-spacing: -0.5px;">Beyond20</h1>
+          <p style="margin: 8px 0 0 0; color: #c4b5fd; font-size: 14px;">Password Reset Verification Code 🔐</p>
+        </div>
+
+        <!-- Body -->
+        <div style="padding: 32px 28px;">
+          <p style="font-size: 16px; margin-top: 0;">Dear <strong>${user.fullName}</strong>,</p>
+          <p>We received a request to reset the password for your Beyond20 account. Use the verification code below to proceed with the reset. This code is valid for 10 minutes.</p>
+
+          <!-- OTP Box -->
+          <div style="text-align: center; background: #f8f5ff; border: 1px solid #e9d5ff; border-radius: 8px; padding: 24px; margin: 24px 0;">
+            <p style="margin: 0 0 8px 0; font-size: 13px; color: #6b7280; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;">Verification Code</p>
+            <div style="font-family: monospace; font-size: 32px; font-weight: 800; color: #4C1D95; letter-spacing: 6px; margin: 0 auto; width: fit-content; padding: 8px 16px; background: #fff; border: 1px solid #e9d5ff; border-radius: 6px;">
+              ${otp}
+            </div>
+          </div>
+
+          <p style="font-size: 14px; color: #6b7280;">If you did not request a password reset, please ignore this email or contact support if you have concerns.</p>
+
+          <p style="margin-bottom: 0;">Best Regards,<br><strong>Beyond20 Team</strong></p>
+        </div>
+
+        <!-- Footer -->
+        <div style="background: #f8fafc; padding: 16px 28px; text-align: center; font-size: 12px; color: #94a3b8; border-top: 1px solid #e2e8f0;">
+          © ${new Date().getFullYear()} Beyond20. All rights reserved.<br>
+          If you did not expect this email, please contact <a href="mailto:${fromEmail}" style="color: #7C3AED;">${fromEmail}</a>.
+        </div>
+      </div>
+    `,
+  });
+
+  if (error) {
+    console.error(`[Email] ❌ Failed to send password reset email to ${user.email}:`, error);
+    throw new Error(error.message || JSON.stringify(error));
+  }
+
+  console.log(`[Email] ✅ Password reset email sent to ${user.email} — ID: ${data?.id}`);
+  return true;
+};

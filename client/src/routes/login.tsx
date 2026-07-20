@@ -2,7 +2,8 @@ import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { GraduationCap, ArrowRight } from "lucide-react";
 import { useState } from "react";
 import { classroomStore, type User } from "@/lib/classroomStore";
-import { loginUser } from "@/lib/api";
+import { loginUser, forgotPassword, resetPassword } from "@/lib/api";
+import { useOrganizationDetails } from "@/lib/organization";
 
 export const Route = createFileRoute("/login")({ component: Login });
 
@@ -12,6 +13,69 @@ function Login() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  // Password reset flow states
+  const [forgotMode, setForgotMode] = useState(false);
+  const [resetStep, setResetStep] = useState<1 | 2>(1);
+  const [forgotEmail, setForgotEmail] = useState("");
+  const [resetCode, setResetCode] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [successMsg, setSuccessMsg] = useState("");
+
+  const handleRequestCode = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError("");
+    setSuccessMsg("");
+    setIsSubmitting(true);
+    try {
+      const res = await forgotPassword(forgotEmail);
+      if (res.success) {
+        setSuccessMsg(res.message || "A verification code has been sent to your email.");
+        setResetStep(2);
+      }
+    } catch (err: any) {
+      setError(err.message || "Failed to send verification code. Please check your email.");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const handleResetSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError("");
+    setSuccessMsg("");
+
+    if (newPassword !== confirmPassword) {
+      setError("Passwords do not match.");
+      return;
+    }
+
+    setIsSubmitting(true);
+    try {
+      const res = await resetPassword({
+        email: forgotEmail,
+        otp: resetCode,
+        newPassword
+      });
+      if (res.success) {
+        setSuccessMsg("Password reset successfully! You can now log in.");
+        setTimeout(() => {
+          setForgotMode(false);
+          setResetStep(1);
+          setForgotEmail("");
+          setResetCode("");
+          setNewPassword("");
+          setConfirmPassword("");
+          setSuccessMsg("");
+        }, 3000);
+      }
+    } catch (err: any) {
+      setError(err.message || "Reset failed. Please verify the code and try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -41,6 +105,8 @@ function Login() {
     }
   };
 
+  const organization = useOrganizationDetails();
+
   return (
     <div className="min-h-screen flex">
       {/* Left visual */}
@@ -51,9 +117,9 @@ function Login() {
 
         <Link to="/" className="relative inline-flex items-center gap-2 w-fit">
           <span className="relative block h-10 w-10 overflow-hidden rounded-xl">
-            <img src="/logo.jpeg" alt="Beyond20" className="h-full w-full object-cover" />
+            <img src={organization.logo} alt={organization.name} className="h-full w-full object-cover" />
           </span>
-          <span className="font-display text-lg font-bold">Beyond20</span>
+          <span className="font-display text-lg font-bold">{organization.name}</span>
         </Link>
 
         <div className="relative">
@@ -66,7 +132,7 @@ function Login() {
           </p>
         </div>
 
-        <div className="relative text-xs text-cream/50">© {new Date().getFullYear()} Beyond20</div>
+        <div className="relative text-xs text-cream/50">© {new Date().getFullYear()} {organization.name}</div>
       </div>
 
       {/* Right form */}
@@ -74,39 +140,153 @@ function Login() {
         <div className="w-full max-w-md">
           <Link to="/" className="lg:hidden inline-flex items-center gap-2 mb-8">
             <span className="relative block h-9 w-9 overflow-hidden rounded-xl">
-              <img src="/logo.jpeg" alt="Beyond20" className="h-full w-full object-cover" />
+              <img src={organization.logo} alt={organization.name} className="h-full w-full object-cover" />
             </span>
-            <span className="font-display font-bold text-plum-dark">Beyond20</span>
+            <span className="font-display font-bold text-plum-dark">{organization.name}</span>
           </Link>
 
-          <h2 className="font-display text-3xl font-bold text-plum-dark">Sign in</h2>
-          <p className="mt-2 text-sm text-foreground/65">Enter your credentials to access your portal.</p>
+          {!forgotMode ? (
+            <>
+              <h2 className="font-display text-3xl font-bold text-plum-dark">Sign in</h2>
+              <p className="mt-2 text-sm text-foreground/65">Enter your credentials to access your portal.</p>
 
-          <form onSubmit={handleLogin} className="mt-8 space-y-4">
-            {error && <div className="text-red-500 text-sm font-semibold p-3 bg-red-50 rounded-lg">{error}</div>}
-            <div>
-              <label className="block text-xs font-semibold text-plum-dark mb-1.5">User ID/Email</label>
-              <input value={userId} onChange={e => setUserId(e.target.value)} type="text" placeholder="e.g. example@gmail.com or Admin" className="w-full rounded-full border border-border bg-card px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-plum" required />
-            </div>
-            <div>
-              <div className="flex justify-between items-center mb-1.5">
-                <label className="block text-xs font-semibold text-plum-dark">Password</label>
-                <a href="#" className="text-xs text-plum font-semibold">Forgot?</a>
-              </div>
-              <input value={password} onChange={e => setPassword(e.target.value)} type="password" placeholder="••••••••" className="w-full rounded-full border border-border bg-card px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-plum" required />
-            </div>
+              <form onSubmit={handleLogin} className="mt-8 space-y-4">
+                {error && <div className="text-red-500 text-sm font-semibold p-3 bg-red-50 rounded-lg">{error}</div>}
+                <div>
+                  <label className="block text-xs font-semibold text-plum-dark mb-1.5">User ID/Email</label>
+                  <input value={userId} onChange={e => setUserId(e.target.value)} type="text" placeholder="e.g. example@gmail.com or Admin" className="w-full rounded-full border border-border bg-card px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-plum" required />
+                </div>
+                <div>
+                  <div className="flex justify-between items-center mb-1.5">
+                    <label className="block text-xs font-semibold text-plum-dark">Password</label>
+                    <button type="button" onClick={() => { setForgotMode(true); setResetStep(1); setError(""); setSuccessMsg(""); }} className="text-xs text-plum font-semibold hover:underline">Forgot?</button>
+                  </div>
+                  <input value={password} onChange={e => setPassword(e.target.value)} type="password" placeholder="••••••••" className="w-full rounded-full border border-border bg-card px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-plum" required />
+                </div>
 
-            <button type="submit" disabled={isSubmitting} className="group w-full inline-flex items-center justify-center gap-2 rounded-full bg-plum-dark px-6 py-3.5 text-sm font-semibold text-cream hover:bg-plum transition disabled:cursor-not-allowed disabled:opacity-70">
-              {isSubmitting ? "Signing in..." : "Sign in"} <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
-            </button>
-          </form>
+                <button type="submit" disabled={isSubmitting} className="group w-full inline-flex items-center justify-center gap-2 rounded-full bg-plum-dark px-6 py-3.5 text-sm font-semibold text-cream hover:bg-plum transition disabled:cursor-not-allowed disabled:opacity-70">
+                  {isSubmitting ? "Signing in..." : "Sign in"} <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                </button>
+              </form>
+            </>
+          ) : (
+            <>
+              <h2 className="font-display text-3xl font-bold text-plum-dark">Reset password</h2>
+              <p className="mt-2 text-sm text-foreground/65">
+                {resetStep === 1
+                  ? "Enter your email to receive a password reset verification code."
+                  : "Enter the code sent to your email and choose a new password."}
+              </p>
+
+              {error && <div className="text-red-500 text-sm font-semibold p-3 bg-red-50 rounded-lg mt-6">{error}</div>}
+              {successMsg && <div className="text-green-600 text-sm font-semibold p-3 bg-green-50 rounded-lg mt-6">{successMsg}</div>}
+
+              {resetStep === 1 ? (
+                <form onSubmit={handleRequestCode} className="mt-8 space-y-4">
+                  <div>
+                    <label className="block text-xs font-semibold text-plum-dark mb-1.5">Email Address</label>
+                    <input
+                      value={forgotEmail}
+                      onChange={(e) => setForgotEmail(e.target.value)}
+                      type="email"
+                      placeholder="e.g. yourname@example.com"
+                      className="w-full rounded-full border border-border bg-card px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-plum"
+                      required
+                    />
+                  </div>
+
+                  <button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="group w-full inline-flex items-center justify-center gap-2 rounded-full bg-plum-dark px-6 py-3.5 text-sm font-semibold text-cream hover:bg-plum transition disabled:cursor-not-allowed disabled:opacity-70"
+                  >
+                    {isSubmitting ? "Sending code..." : "Send Verification Code"}
+                    <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => setForgotMode(false)}
+                    className="w-full text-center text-xs text-plum font-semibold mt-4 hover:underline block"
+                  >
+                    ← Back to Sign In
+                  </button>
+                </form>
+              ) : (
+                <form onSubmit={handleResetSubmit} className="mt-8 space-y-4">
+                  <div>
+                    <label className="block text-xs font-semibold text-plum-dark mb-1.5">Verification Code (6-digit)</label>
+                    <input
+                      value={resetCode}
+                      onChange={(e) => setResetCode(e.target.value)}
+                      type="text"
+                      maxLength={6}
+                      placeholder="e.g. 123456"
+                      className="w-full rounded-full border border-border bg-card px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-plum font-mono text-center tracking-widest text-lg"
+                      required
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-semibold text-plum-dark mb-1.5">New Password</label>
+                    <input
+                      value={newPassword}
+                      onChange={(e) => setNewPassword(e.target.value)}
+                      type="password"
+                      placeholder="••••••••"
+                      className="w-full rounded-full border border-border bg-card px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-plum"
+                      required
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-semibold text-plum-dark mb-1.5">Confirm New Password</label>
+                    <input
+                      value={confirmPassword}
+                      onChange={(e) => setConfirmPassword(e.target.value)}
+                      type="password"
+                      placeholder="••••••••"
+                      className="w-full rounded-full border border-border bg-card px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-plum"
+                      required
+                    />
+                  </div>
+
+                  <button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="group w-full inline-flex items-center justify-center gap-2 rounded-full bg-plum-dark px-6 py-3.5 text-sm font-semibold text-cream hover:bg-plum transition disabled:cursor-not-allowed disabled:opacity-70"
+                  >
+                    {isSubmitting ? "Resetting password..." : "Reset Password"}
+                    <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                  </button>
+
+                  <div className="flex justify-between items-center mt-4 px-2">
+                    <button
+                      type="button"
+                      onClick={() => setResetStep(1)}
+                      className="text-xs text-plum font-semibold hover:underline"
+                    >
+                      ← Back
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setForgotMode(false)}
+                      className="text-xs text-plum font-semibold hover:underline"
+                    >
+                      Back to Sign In
+                    </button>
+                  </div>
+                </form>
+              )}
+            </>
+          )}
 
           <div className="my-6 flex items-center gap-3 text-xs text-foreground/50">
             <div className="h-px flex-1 bg-border" /> or <div className="h-px flex-1 bg-border" />
           </div>
 
           <p className="mt-6 text-center text-sm text-foreground/65">
-            New to Beyond20? <Link to="/courses" className="font-semibold text-plum-dark">Browse courses →</Link>
+            New to {organization.name}? <Link to="/courses" className="font-semibold text-plum-dark">Browse courses →</Link>
           </p>
         </div>
       </div>

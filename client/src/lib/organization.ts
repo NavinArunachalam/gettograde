@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { api } from "@/lib/api";
+import { api, getAssetUrl } from "@/lib/api";
 
 export type OrganizationDetails = {
   name: string;
@@ -11,6 +11,7 @@ export type OrganizationDetails = {
   gst: string;
   timezone: string;
   about: string;
+  logo: string;
 };
 
 export const defaultOrganization: OrganizationDetails = {
@@ -23,15 +24,20 @@ export const defaultOrganization: OrganizationDetails = {
   gst: "29AABCM1234C1ZK",
   timezone: "Asia/Kolkata",
   about: "Welcome to Beyond20 — a professional training academy built for turning learners into industry-ready professionals.",
+  logo: "/logo.jpeg",
 };
 
 export function normalizeOrganization(raw: Partial<OrganizationDetails> = {}): OrganizationDetails {
-  return {
+  const normalized = {
     ...defaultOrganization,
     ...Object.fromEntries(
       Object.entries(raw).filter(([, value]) => value !== undefined && value !== null && value !== "")
     ),
   };
+  if (raw.logo) {
+    normalized.logo = getAssetUrl(raw.logo);
+  }
+  return normalized;
 }
 
 export function useOrganizationDetails() {

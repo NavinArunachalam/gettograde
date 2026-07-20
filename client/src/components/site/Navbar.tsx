@@ -33,7 +33,7 @@ export function Navbar() {
       <div className="mx-auto flex h-16 w-full max-w-[1400px] items-center justify-between px-5 lg:px-8">
         <Link to="/" className="flex items-center gap-2 group">
           <span className="relative block h-10 w-10 overflow-hidden rounded-xl transition-transform">
-            <img src="/logo.jpeg" alt={organization.name} className="h-full w-full object-cover" />
+            <img src={organization.logo} alt={organization.name} className="h-full w-full object-cover" />
           </span>
           <span className="font-display text-[17px] font-bold tracking-tight text-plum-dark">
             {organization.name}

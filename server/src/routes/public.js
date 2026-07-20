@@ -213,10 +213,16 @@ router.get('/contact-details', async (req, res, next) => {
     let contactDetails = await ContactDetail.findOne();
     if (!contactDetails) {
       contactDetails = {
+        name: "Axon Academy",
+        url: "axon.academy",
         address: "Plot 21, Medical Campus, Hosur Road, Bengaluru — 560001",
         phone: "+91 98765 43210",
         email: "hello@axon.academy",
-        hours: "Monday – Saturday, 9 AM to 8 PM"
+        hours: "Monday – Saturday, 9 AM to 8 PM",
+        gst: "29AABCM1234C1ZK",
+        timezone: "Asia/Kolkata",
+        about: "India's most trusted paramedical training academy.",
+        logo: "/logo.jpeg"
       };
     }
     res.json({ success: true, contactDetails });

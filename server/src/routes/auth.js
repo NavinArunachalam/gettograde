@@ -10,9 +10,10 @@ const fs = require('fs');
 const User = require('../models/User');
 const StudentRequest = require('../models/StudentRequest');
 const { protect } = require('../middleware/auth');
+const { sendPasswordResetEmail } = require('../services/emailService');
 
 const defaultLoginAccounts = {
-  'axonmedacademy2@gmail.com': {
+  'beyond20@gmail.com': {
     fullName: 'Admin',
     password: 'admin',
     role: 'admin',
@@ -526,6 +527,88 @@ router.post('/logout', protect, async (req, res) => {
   res.clearCookie('session', clearOptions);
 
   res.json({ success: true, message: 'Logged out successfully' });
+});
+
+// POST /forgot-password → Request temporary OTP reset code
+router.post('/forgot-password', async (req, res, next) => {
+  try {
+    const { email } = req.body;
+    if (!email) {
+      return res.status(400).json({ success: false, message: 'Please provide email address' });
+    }
+
+    const user = await User.findOne({ email: email.toLowerCase() });
+    if (!user) {
+      return res.status(404).json({ success: false, message: 'No account found with this email' });
+    }
+
+    // Generate a 6-digit OTP
+    const otp = Math.floor(100000 + Math.random() * 900000).toString();
+    const otpExpiry = new Date(Date.now() + 10 * 60 * 1000); // 10 minutes from now
+
+    // Hash OTP before saving
+    const salt = await bcrypt.genSalt(10);
+    const hashedOtp = await bcrypt.hash(otp, salt);
+
+    user.otp = hashedOtp;
+    user.otpExpiry = otpExpiry;
+    await user.save();
+
+    // Trigger email send async
+    Promise.resolve()
+      .then(() => sendPasswordResetEmail(user, otp))
+      .catch(mailErr => {
+        console.error('[Email] ❌ Failed to send password reset email:', mailErr.message);
+      });
+
+    res.json({
+      success: true,
+      message: 'Password reset code has been sent to your email.'
+    });
+  } catch (error) {
+    next(error);
+  }
+});
+
+// POST /reset-password → Verify OTP and update password
+router.post('/reset-password', async (req, res, next) => {
+  try {
+    const { email, otp, newPassword } = req.body;
+    if (!email || !otp || !newPassword) {
+      return res.status(400).json({ success: false, message: 'Please provide email, verification code, and new password' });
+    }
+
+    const user = await User.findOne({ email: email.toLowerCase() }).select('+otp +otpExpiry');
+    if (!user) {
+      return res.status(404).json({ success: false, message: 'No account found with this email' });
+    }
+
+    if (!user.otp || !user.otpExpiry) {
+      return res.status(400).json({ success: false, message: 'No active password reset request exists' });
+    }
+
+    if (new Date() > user.otpExpiry) {
+      return res.status(400).json({ success: false, message: 'Verification code has expired. Please request a new one.' });
+    }
+
+    const isMatch = await bcrypt.compare(otp, user.otp);
+    if (!isMatch) {
+      return res.status(400).json({ success: false, message: 'Invalid verification code' });
+    }
+
+    // Set new password (will be hashed automatically by user model pre-save hook)
+    user.password = newPassword;
+    user.otp = undefined;
+    user.otpExpiry = undefined;
+    await user.save();
+
+    res.json({
+      success: true,
+      message: 'Password reset successfully. You can now log in.'
+    });
+  } catch (error) {
+    next(error);
+  }
 });
 
 module.exports = router;

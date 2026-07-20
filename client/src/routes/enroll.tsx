@@ -3,6 +3,7 @@ import { GraduationCap, CheckCircle2, ArrowRight, Loader2 } from "lucide-react";
 import { useState, useEffect } from "react";
 import {  getAdminPrograms, type RegisterStudentData, type ProgramCourse } from "@/lib/api";
 import { submitToGoogleSheet } from "@/lib/googleSheets";
+import { useOrganizationDetails } from "@/lib/organization";
 export const Route = createFileRoute("/enroll")({ component: Enroll });
 
 function Enroll() {
@@ -91,6 +92,8 @@ function Enroll() {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
+  const organization = useOrganizationDetails();
+
   if (success) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-background p-6">
@@ -98,19 +101,16 @@ function Enroll() {
           <div className="mb-6 inline-flex h-20 w-20 items-center justify-center rounded-full bg-lime/20 text-lime">
             <CheckCircle2 className="h-10 w-10" />
           </div>
-          <h2 className="font-display text-3xl font-bold text-plum-dark">Application Received!</h2>
-          <p className="mt-4 text-foreground/65">
-            Thank you for applying to Beyond20. Your registration is now under review by our admissions team.
+          <h2 className="font-display text-3xl font-bold text-plum-dark">Application Sent!</h2>
+          <p className="mt-3 text-sm text-foreground/65 leading-relaxed">
+            Thank you for applying to {organization.name}. Your registration is now under review by our admissions team.
           </p>
-          <p className="mt-2 text-sm text-foreground/50">
-            We will contact you via email once your application has been processed.
-          </p>
-          <div className="mt-10">
+          <div className="mt-8">
             <Link
               to="/"
-              className="inline-flex items-center gap-2 rounded-full bg-plum-dark px-8 py-3.5 text-sm font-semibold text-cream hover:bg-plum transition"
+              className="inline-flex items-center gap-2 rounded-full bg-plum-dark px-6 py-3 text-sm font-semibold text-cream hover:bg-plum"
             >
-              Return Home
+              Go to Homepage
             </Link>
           </div>
         </div>
@@ -127,9 +127,9 @@ function Enroll() {
         
         <Link to="/" className="relative inline-flex items-center gap-2 w-fit">
           <span className="relative block h-10 w-10 overflow-hidden rounded-xl">
-            <img src="/logo.jpeg" alt="Beyond20" className="h-full w-full object-cover" />
+            <img src={organization.logo} alt={organization.name} className="h-full w-full object-cover" />
           </span>
-          <span className="font-display text-lg font-bold">Beyond20</span>
+          <span className="font-display text-lg font-bold">{organization.name}</span>
         </Link>
 
         <div className="relative">
@@ -161,7 +161,7 @@ function Enroll() {
           </div>
         </div>
 
-        <div className="relative text-xs text-cream/50">© {new Date().getFullYear()} Beyond20</div>
+        <div className="relative text-xs text-cream/50">© {new Date().getFullYear()} {organization.name}</div>
       </div>
 
       {/* Right form */}
@@ -169,9 +169,9 @@ function Enroll() {
         <div className="mx-auto max-w-2xl">
           <Link to="/" className="lg:hidden inline-flex items-center gap-2 mb-8">
             <span className="relative block h-9 w-9 overflow-hidden rounded-xl">
-              <img src="/logo.jpeg" alt="Beyond20" className="h-full w-full object-cover" />
+              <img src={organization.logo} alt={organization.name} className="h-full w-full object-cover" />
             </span>
-            <span className="font-display font-bold text-plum-dark">Beyond20</span>
+            <span className="font-display font-bold text-plum-dark">{organization.name}</span>
           </Link>
 
           <header>

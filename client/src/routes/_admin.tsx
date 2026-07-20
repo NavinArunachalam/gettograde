@@ -6,6 +6,7 @@ import {
 import { PortalShell } from "@/components/portal/PortalShell";
 import { useClassroomStore } from "@/lib/classroomStore";
 import { useEffect, useState } from "react";
+import { useOrganizationDetails } from "@/lib/organization";
 
 const ADMIN_NAV = [
   { label: "Overview", to: "/admin/dashboard", icon: LayoutDashboard },
@@ -38,6 +39,7 @@ export const Route = createFileRoute("/_admin")({
 function AdminLayout() {
   const { currentUser } = useClassroomStore();
   const [hasMounted, setHasMounted] = useState(false);
+  const organization = useOrganizationDetails();
 
   useEffect(() => {
     setHasMounted(true);
@@ -56,7 +58,8 @@ function AdminLayout() {
   return (
     <PortalShell
       variant="admin"
-      brand="Beyond20"
+      brand={organization.name}
+      logo={organization.logo}
       nav={navItems}
       user={{
         name: currentUser.name,

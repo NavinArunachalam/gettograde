@@ -58,10 +58,23 @@ const avatarStorage = new CloudinaryStorage({
   }
 });
 
+const logoStorage = new CloudinaryStorage({
+  cloudinary: cloudinary,
+  params: {
+    folder: 'logo',
+    allowed_formats: ['jpg', 'png', 'jpeg', 'webp', 'svg'],
+    public_id: (req, file) => {
+      const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
+      return 'logo-' + uniqueSuffix;
+    }
+  }
+});
+
 module.exports = {
   cloudinary,
   storage,
   announcementStorage,
   blogStorage,
-  avatarStorage
+  avatarStorage,
+  logoStorage
 };

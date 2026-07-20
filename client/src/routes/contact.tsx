@@ -80,7 +80,7 @@ function Contact() {
         <div className="mx-auto max-w-7xl px-5 lg:px-8">
           <div className="text-xs font-mono uppercase tracking-[0.2em] text-plum">— Contact</div>
           <h1 className="mt-3 max-w-3xl font-display text-4xl lg:text-7xl font-bold text-plum-dark tracking-[-0.03em] leading-[1.02]">
-            Let's start your<br /><span className="text-plum">Beyond20 journey.</span>
+            Let's start your<br /><span className="text-plum">{contactInfo.name} journey.</span>
           </h1>
         </div>
       </section>

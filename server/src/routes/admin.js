@@ -19,10 +19,11 @@ const {
 const { sendWelcomeEmail, sendFacultyWelcomeEmail } = require('../services/emailService');
 const { protect, restrictTo } = require('../middleware/auth');
 const multer = require('multer');
-const { storage, cloudinary, blogStorage } = require('../config/cloudinary');
+const { storage, cloudinary, blogStorage, logoStorage } = require('../config/cloudinary');
 
 const upload = multer({ storage });
 const uploadBlogImage = multer({ storage: blogStorage });
+const uploadLogo = multer({ storage: logoStorage });
 const videoUpload = multer({ storage: multer.memoryStorage() });
 
 // GET /stats → Command center stats: sessions, exams, incidents, users
@@ -712,19 +713,33 @@ router.get('/contact-details', protect, restrictTo('admin', 'superadmin'), async
   }
 });
 
-router.put('/contact-details', protect, restrictTo('admin', 'superadmin'), async (req, res, next) => {
+router.put('/contact-details', protect, restrictTo('admin', 'superadmin'), uploadLogo.single('logo'), async (req, res, next) => {
   try {
-    const { name, url, address, phone, email, hours, gst, timezone, about } = req.body;
+    const { name, url, address, phone, email, hours, gst, timezone, about, removeLogo } = req.body;
     const update = { name, url, address, phone, email, hours, gst, timezone, about };
     let contactDetails = await ContactDetail.findOne();
-    if (contactDetails) {
-      Object.entries(update).forEach(([key, value]) => {
-        if (value !== undefined) contactDetails[key] = value;
-      });
-      await contactDetails.save();
-    } else {
-      contactDetails = await ContactDetail.create(update);
+    if (!contactDetails) {
+      contactDetails = await ContactDetail.create({});
     }
+
+    if (req.file) {
+      if (contactDetails.logoPublicId) {
+        cloudinary.uploader.destroy(contactDetails.logoPublicId).catch(err => console.error('Cloudinary delete error:', err));
+      }
+      update.logo = req.file.path;
+      update.logoPublicId = req.file.filename;
+    } else if (removeLogo === 'true' || removeLogo === true) {
+      if (contactDetails.logoPublicId) {
+        cloudinary.uploader.destroy(contactDetails.logoPublicId).catch(err => console.error('Cloudinary delete error:', err));
+      }
+      update.logo = '';
+      update.logoPublicId = '';
+    }
+
+    Object.entries(update).forEach(([key, value]) => {
+      if (value !== undefined) contactDetails[key] = value;
+    });
+    await contactDetails.save();
     res.json({ success: true, message: 'Organization details saved successfully', contactDetails });
   } catch (error) {
     next(error);
@@ -733,9 +748,13 @@ router.put('/contact-details', protect, restrictTo('admin', 'superadmin'), async
 
 router.delete('/contact-details', protect, restrictTo('admin', 'superadmin'), async (req, res, next) => {
   try {
+    const contactDetails = await ContactDetail.findOne();
+    if (contactDetails && contactDetails.logoPublicId) {
+      cloudinary.uploader.destroy(contactDetails.logoPublicId).catch(err => console.error('Cloudinary delete error:', err));
+    }
     await ContactDetail.deleteMany({});
-    const contactDetails = await ContactDetail.create({});
-    res.json({ success: true, message: 'Organization details reset successfully', contactDetails });
+    const newContactDetails = await ContactDetail.create({});
+    res.json({ success: true, message: 'Organization details reset successfully', contactDetails: newContactDetails });
   } catch (error) {
     next(error);
   }
